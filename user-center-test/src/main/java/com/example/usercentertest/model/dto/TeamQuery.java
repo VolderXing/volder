@@ -1,18 +1,29 @@
 package com.example.usercentertest.model.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.example.usercentertest.common.PageRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class TeamQuery {
+public class TeamQuery extends PageRequest {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
+
+    /**
+     * id 列表
+     */
+    private List<Long> idList;
+
+    /**
+     * 搜索关键词（同时对队伍名称和描述搜索）
+     */
+    private String searchText;
 
     /**
      * 队伍名称
@@ -29,9 +40,8 @@ public class TeamQuery {
      */
     private Integer maxNum;
 
-
     /**
-     * 用户id（队长 id）
+     * 用户id
      */
     private Long userId;
 

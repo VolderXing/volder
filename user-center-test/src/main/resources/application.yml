@@ -9,11 +9,23 @@ spring:
   jvm-arguments: -Xshare:off
   session:
     timeout: 86400
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+  redis:
+    host: localhost
+    port: 6379
 server:
   port: 8080
   servlet:
     context-path: /api
+    session:
+      cookie:
+        domain: localhost
 mybatis-plus:
+  configuration:
+    # 如果你的数据库表字段使用驼峰命名，映射方式要正确
+    map-underscore-to-camel-case: true  # 默认就是 true
   global-config:
     db-config:
       logic-delete-field: isDelete # 全局逻辑删除字段名(deleted为实体类属性名称)

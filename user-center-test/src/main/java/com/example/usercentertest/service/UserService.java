@@ -7,10 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
-* @author Volder
-* @description 针对表【user(用户)】的数据库操作Service
-* @createDate 2025-09-28 14:21:02
-*/
+ * @author Volder
+ * @description 针对表【user(用户)】的数据库操作Service
+ * @createDate 2025-09-28 14:21:02
+ */
 public interface UserService extends IService<User> {
     /**
      * 用户注释
@@ -30,4 +30,16 @@ public interface UserService extends IService<User> {
     boolean removeById(long id);
 
     int userLogout(HttpServletRequest request);
+
+    List<User> searchUsersByTag(List<String> tagNameList);
+
+    int updateUser(User user,User loginUser);
+
+    User getLoginUser(HttpServletRequest request);
+
+    boolean isAdmin(User loginUser);
+
+    boolean isAdmin(HttpServletRequest request);
+
+
 }
