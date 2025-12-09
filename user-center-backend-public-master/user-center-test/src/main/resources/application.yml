@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: user-center-test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/star
+    username: root
+    password: 123456
+  jvm-arguments: -Xshare:off
+  session:
+    timeout: 86400
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+  redis:
+    host: localhost
+    port: 6379
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        domain: localhost
+mybatis-plus:
+  configuration:
+    # 如果你的数据库表字段使用驼峰命名，映射方式要正确
+    map-underscore-to-camel-case: true  # 默认就是 true
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除字段名(deleted为实体类属性名称)
+      logic-delete-value: 1 # 逻辑已删除值。可选，默认值为 1
+      logic-not-delete-value: 0 # 逻辑未删除值。可选，默认值为 0
