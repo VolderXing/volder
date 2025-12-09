@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.usercentertest.model.domain.Team;
 import com.example.usercentertest.model.domain.User;
 import com.example.usercentertest.model.domain.request.TeamJoinRequest;
+import com.example.usercentertest.model.domain.request.TeamQuitRequest;
 import com.example.usercentertest.model.domain.request.TeamUpdateRequest;
 import com.example.usercentertest.model.domain.vo.TeamUserVO;
 import com.example.usercentertest.model.dto.TeamQuery;
@@ -23,4 +24,14 @@ public interface TeamService extends IService<Team> {
     boolean updateTeam(TeamUpdateRequest teamUpdateRequest, User loginUser);
 
     boolean joinTeam(TeamJoinRequest teamJoinRequest, User loginUser);
+
+    boolean quitTeam(TeamQuitRequest teamQuitRequest, User loginUser);
+
+    /**
+     * 解散队伍
+     *
+     * @param id 队伍id
+     * @return 是否成功解散队伍
+     */
+    boolean deleteTeam(long id,User loginUser);
 }
