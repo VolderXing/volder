@@ -9,5 +9,8 @@ import java.io.Serializable;
 public class DeleteRequest implements Serializable {
     @Serial
     private static final long serialVersionUID = -7096674461284447274L;
+    /**
+     * 队伍id
+     */
     private long id;
 }

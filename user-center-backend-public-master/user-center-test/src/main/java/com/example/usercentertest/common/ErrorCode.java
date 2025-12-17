@@ -1,6 +1,5 @@
 package com.example.usercentertest.common;
 
-import lombok.Data;
 import lombok.Getter;
 
 /**

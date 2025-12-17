@@ -30,7 +30,7 @@ import static com.example.usercentertest.constant.UserConstant.USER_LOGIN_STATE;
 @RestController
 @RequestMapping("/user")
 @Tag(name = "user-center api", description = "用于管理用户")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:5173" , "http://localhost:3000"} , allowCredentials = "true")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -60,8 +60,8 @@ public class UserController {
         if (userLoginRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        String userAccount = userLoginRequest.getUseraccount();
-        String userPassword = userLoginRequest.getUserpassword();
+        String userAccount = userLoginRequest.getUserAccount();
+        String userPassword = userLoginRequest.getUserPassword();
         if (StringUtils.isAllBlank(userAccount,userPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -164,7 +164,19 @@ public class UserController {
         return ResultUtils.success(result);
     }
 
-
-
-
+    /**
+     * 获取最匹配的用户
+     *
+     * @param num
+     * @param request
+     * @return
+     */
+    @GetMapping("/match")
+    public BaseResponse<List<User>> matchUsers(long num, HttpServletRequest request) {
+        if (num <= 0 || num > 20) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User user = userService.getLoginUser(request);
+        return ResultUtils.success(userService.matchUsers(num, user));
+    }
 }

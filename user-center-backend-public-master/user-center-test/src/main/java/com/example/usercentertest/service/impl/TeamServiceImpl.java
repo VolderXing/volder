@@ -66,7 +66,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         }
         // 队伍标题 <= 20
         String description = team.getDescription();
-        if(StringUtils.isNotBlank(description) && description.length() <= 512){
+        if(!StringUtils.isNotBlank(description) && description.length() >= 512){
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "标题长度不符合要求");
         }
         // status是否公开 不传默认为0 (公开)
@@ -78,7 +78,9 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         // 如果 status是加密状态，一定要有密码, 密码<=32
         String password = team.getPassword();
         if(TeamStatusEnum.SECRET.equals(teamStatusEnum)){
-            if (StringUtils.isNotBlank(password) || password.length() > 32){
+            System.out.println(password.length());
+            System.out.println(StringUtils.isNotBlank(password));
+            if (!StringUtils.isNotBlank(password) || password.length() > 32){
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码长度不正确");
             }
         }
@@ -278,6 +280,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean quitTeam(TeamQuitRequest teamQuitRequest, User loginUser) {
         if (teamQuitRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);

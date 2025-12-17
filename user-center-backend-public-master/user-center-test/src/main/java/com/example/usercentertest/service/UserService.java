@@ -41,5 +41,5 @@ public interface UserService extends IService<User> {
 
     boolean isAdmin(HttpServletRequest request);
 
-
+    List<User> matchUsers(long num, User loginUser);
 }
